@@ -1,0 +1,36 @@
+redshift--public.policy_new---yesterday's data(as history) stored
+s3://ccsm-prod-rawdata/msil_ccsm_table_Finance/msilmdm_policy_df_inc/
+---DONE
+
+redshft---public.policy_new_delta---today's incre saving--------truncate n load
+msilmsdm_policy_df_today_incr
+
+deleting from public those whch is present in ccsm_dev
+
+
+
+observtn:--
+ccsm prod has few same data as our public.policy_new
+nothing same btwn policy_new and policy_new_delta
+
+max(updated_date) of policy_new_delta---2024-04-19 23:21:37
+max(updated_date) of policy_new---------2024-04-19 00:28:23
+
+
+2 jobs____
+
+prereq:--
+History data alrdy in Redshift
+
+1)Get the data greater than max date of yesterday's incre and put in s3.
+2)From s3Incre truncate and load into Redshift Delta
+  a)Get yesterday's maxdate
+  b)Read from cataogoe those data greater than yesterday's max date
+
+2)From redshift History delete those records present in Incre and insert the Incre in Redshift
+
+
+
+
+>>>>>>>>>the redshift is in another aws account
+>>>>>>>>>Through Glue job we are accsiing redshift
